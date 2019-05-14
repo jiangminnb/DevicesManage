@@ -1,0 +1,30 @@
+# 运行程序
+python manage.py runserver
+
+
+# 重置admin密码
+python manage.py shell
+
+
+from django.contrib.auth.models import User
+user = User.objects.get(username='admin')
+user.set_password('123456')
+user.save()
+
+
+
+# 安装 xadmin
+pip install git+git://github.com/sshwsfc/xadmin.git@django2
+
+# Bootstrap
+https://v3.bootcss.com/getting-started/#download
+# 解压 static/
+
+
+
+# 如有修改数据库表结构
+python manage.py makemigrations
+python manage.py migrate
+
+# 创建admin用户
+python manage.py createsuperuser

@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Gowild 测试设备管理系统</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <!-- Theme style -->
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css"%}">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="{% static "css/bootstrap-theme.min.css" %}">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="{% static "css/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/jquery.min.js" %}"></script>
+
+</head>
+<body class="hold-transition sidebar-mini" style="margin:10px 10px 10px 10px;">
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<nav class="navbar navbar-default navbar-inverse" role="navigation">
+				<div class="navbar-header">
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"></button> <a class="navbar-brand" href="/">测试设备管理系统</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							 <a href="/">手机</a>
+						</li>
+						<li class="active">
+							 <a href="/machine">机器</a>
+						</li>
+                        <li>
+							 <a href="/pc">电脑相关</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							 <a href="/admin">管理登录</a>
+						</li>
+					</ul>
+				</div>
+
+			</nav>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr class="bg-warning">
+                   <th>序号</th>
+                  <th>设备名称</th>
+                  <th>操作系统</th>
+                  <th>版本</th>
+                  <th>设备编号</th>
+                  <th>状态</th>
+                  <th>当前使用</th>
+                  <th>借出时间</th>
+                </tr>
+                </thead>
+				<tbody>
+                  {% for device in devices %}
+                <tr>
+                  <td>{{ device.id }}</td>
+                  <td>{{ device.name }}</td>
+                    {% if  device.os == 'Android' %}
+                        <td><span class="fa fa-android " style="color:green"> {{ device.os }}</span></td>
+                    {% elif  device.os == 'iOS' %}
+                        <td><span class="fa fa-apple"> {{ device.os }}</span></td>
+                    {% elif  device.os == 'Linux' %}
+                        <td><span class="fa fa-linux"> {{ device.os }}</span></td>
+                    {% else %}
+                        <td> {{ device.os }}</td>
+                    {% endif %}
+                  <td>{{ device.version }}</td>
+                  <td>{{ device.sn }}</td>
+                    {% if  device.status == 'lend' %}
+                        <td><span style="color:green">使用</span></td>
+                    {% elif  device.status == 'idle' %}
+                        <td><span style="color:red">闲置</span></td>
+                    {% elif  device.status == 'company' %}
+                        <td><span style="color:grey">已还公司</span></td>
+                    {% else %}
+                        <td> {{ device.status }}</td>
+                    {% endif %}
+                    {% if  device.user is null or device.user is None %}
+                        <td></td>
+                    {% else %}
+                        <td>{{ device.user }}</td>
+                    {% endif %}
+                     {% if  device.add_time is null or device.add_time is None %}
+                        <td></td>
+                    {% else %}
+{#                        <td>{{ device.add_time|timesince }}</td>#}
+                         <td>{{ device.add_time|date:"Y-m-d" }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                <th>共计</th>
+                  <th colspan="2">琥珀C1 : {{ hp_cont }} 台</th>
+                  <th colspan="3">公子小白 : 公子 {{ gz_cont }} 台, 小白   {{ xb_cont }} 台</th>
+                  <th colspan="2">小小白 : {{ xxb_cont }} 台 </th>
+                </tr>
+                </tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<div>
+<br>
+</div>
+<div class="s-footer" style="text-align:center">
+<div class="s-footer-bottom">
+<p>Copyright © 2018-2019 <a href="http://qa.gowild.top" title="qa.gowild.top">QA team </a> All Rights Reserved. </p>
+</div>
+</div>
+<div>
+<br>
+</div>
+</body>
+</html>
