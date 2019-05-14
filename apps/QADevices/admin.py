@@ -14,7 +14,7 @@ class BaseSetting(object):
 # 全局设置
 class GlobalSettings(object):
     """标题及版权修改"""
-    site_title = "江敏日进斗金系统"
+    site_title = "日进斗金系统"
 
     site_footer = "2018-2019 JiangMin"  # 页脚版权
 
